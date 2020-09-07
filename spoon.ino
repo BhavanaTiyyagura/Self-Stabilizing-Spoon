@@ -57,9 +57,6 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 #define ROLL  2     // defines the position within ypr[x] variable for ROLL; may vary due to sensor orientation when mounted
 #define YAW   0     // defines the position within ypr[x] variable for YAW; may vary due to sensor orientation when mounted
 
-// ================================================================
-// ===                      INITIAL SETUP                       ===
-// ================================================================
 
 void setup()
 {
@@ -80,14 +77,14 @@ void setup()
   // join I2C bus (I2Cdev library doesn't do this automatically)
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
   Wire.begin();
-  TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
+  TWBR = 24; // 400kHz I2C clock 
 #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
   Fastwire::setup(400, true);
 #endif
 
   Serial.begin(115200);
   
-  while (!Serial);      // wait for Leonardo enumeration, others continue immediately
+  while (!Serial);     
 
   // initialize device
   Serial.println(F("Initializing I2C devices..."));
@@ -102,7 +99,7 @@ void setup()
   devStatus = mpu.dmpInitialize();
 
 
-  // INPUT CALIBRATED OFFSETS HERE; SPECIFIC FOR EACH UNIT AND EACH MOUNTING CONFIGURATION!!!!
+  // INPUT CALIBRATED OFFSETS
 
   /*mpu.setXGyroOffset(118);
   mpu.setYGyroOffset(-44);
@@ -146,9 +143,7 @@ void setup()
 
 
 
-// ================================================================
-// ===                    MAIN PROGRAM LOOP                     ===
-// ================================================================
+
 
 void loop(void)
 {
@@ -156,10 +151,7 @@ void loop(void)
 }   // loop()
 
 
-
-// ================================================================
-// ===                    PROCESS ACCEL/GYRO IF AVAILABLE       ===
-// ================================================================
+//process data
 
 void processAccelGyro()
 {
